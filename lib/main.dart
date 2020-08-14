@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.lightGreen,
 //        canvasColor: Colors.lightGreen.shade100,
 //        floatingActionButtonTheme: FloatingActionButtonThemeData(
 //            backgroundColor: Colors.lightGrerenAccent,
@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
 //                borderRadius: BorderRadius.circular(8.0))),
       ),
       home: MyHomePage(
-        title: 'Flutter Demo App',
+        title: 'HOME',
       ),
     );
   }
@@ -40,19 +40,48 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          actions: [
+            IconButton(icon: Icon(Icons.search), onPressed: () {}),
+            IconButton(icon: Icon(Icons.more_vert), onPressed: () {})
+          ],
+          flexibleSpace: SafeArea(
+            child: Icon(
+              Icons.camera_alt,
+              size: 75.0,
+              color: Colors.white70,
+            ),
+          ),
+          bottom: PreferredSize(
+              child: Container(
+                color: Colors.lightGreen.shade100,
+                height: 75.0,
+                width: double.infinity,
+                child: Center(
+                  child: Text('BOTTOM'),
+                ),
+              ),
+              preferredSize: Size.fromHeight(75.0)),
+          leading: IconButton(
+              icon: Icon(Icons.menu),
+              onPressed: () {
+                debugPrint('Icon Pressed');
+              }),
           title: Text(widget.title),
         ),
-        body: SafeArea(
-          child: SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Padding(
-              padding: EdgeInsets.all(16.0),
-              child: Column(
-                children: [
-                  const RowWidget(),
-                  Padding(padding: EdgeInsets.all(16.0)),
-                  const RowAndColumnWidget()
-                ],
+        body: Padding(
+          padding: EdgeInsets.all(16.0),
+          child: SafeArea(
+            child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Padding(
+                padding: EdgeInsets.all(16.0),
+                child: Column(
+                  children: [
+                    const RowWidget(),
+                    Padding(padding: EdgeInsets.all(16.0)),
+                    const RowAndColumnWidget()
+                  ],
+                ),
               ),
             ),
           ),
