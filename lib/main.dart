@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:super_app/widgets/column_widget.dart';
+import 'package:super_app/widgets/container_with_decoration.dart';
+import 'package:super_app/widgets/nested_column_row.dart';
+import 'package:super_app/widgets/popup_menu_button.dart';
+import 'package:super_app/widgets/row_widget.dart';
 
 void main() {
   runApp(MyApp());
@@ -12,12 +17,6 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.lightGreen,
-//        canvasColor: Colors.lightGreen.shade100,
-//        floatingActionButtonTheme: FloatingActionButtonThemeData(
-//            backgroundColor: Colors.lightGrerenAccent,
-//            splashColor: Colors.redAccent,
-//            shape: RoundedRectangleBorder(
-//                borderRadius: BorderRadius.circular(8.0))),
       ),
       home: MyHomePage(
         title: 'HOME',
@@ -36,161 +35,123 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          actions: [
-            IconButton(icon: Icon(Icons.search), onPressed: () {}),
-            IconButton(icon: Icon(Icons.more_vert), onPressed: () {})
-          ],
-          flexibleSpace: SafeArea(
-            child: Icon(
-              Icons.camera_alt,
-              size: 75.0,
-              color: Colors.white70,
-            ),
+      appBar: AppBar(
+        actions: [
+          IconButton(icon: Icon(Icons.search), onPressed: () {}),
+          IconButton(icon: Icon(Icons.more_vert), onPressed: () {})
+        ],
+        flexibleSpace: SafeArea(
+          child: Icon(
+            Icons.camera_alt,
+            size: 75.0,
+            color: Colors.white70,
           ),
-          bottom: PreferredSize(
-              child: Container(
-                color: Colors.lightGreen.shade100,
-                height: 75.0,
-                width: double.infinity,
-                child: Center(
-                  child: Text('BOTTOM'),
-                ),
-              ),
-              preferredSize: Size.fromHeight(75.0)),
-          leading: IconButton(
-              icon: Icon(Icons.menu),
-              onPressed: () {
-                debugPrint('Icon Pressed');
-              }),
-          title: Text(widget.title),
         ),
-        body: Padding(
-          padding: EdgeInsets.all(16.0),
-          child: SafeArea(
-            child: SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              child: Padding(
-                padding: EdgeInsets.all(16.0),
-                child: Column(
+        bottom: PopupMenuButtonWidget(),
+        leading: IconButton(
+            icon: Icon(Icons.menu),
+            onPressed: () {
+              debugPrint('Icon Pressed');
+            }),
+        title: Text(widget.title),
+      ),
+      body: Padding(
+        padding: EdgeInsets.all(16.0),
+        child: SafeArea(
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const ContainerWithBoxDecorationWidget(),
+                const ColumnWidget(),
+                const RowWidget(),
+                Divider(),
+                const ColumnAndRowNestingWidget(),
+                Divider(),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    const RowWidget(),
-                    Padding(padding: EdgeInsets.all(16.0)),
-                    const RowAndColumnWidget()
+                    FlatButton(
+                      onPressed: () {},
+                      child: Text('Flag'),
+                    ),
+                    FlatButton(
+                      onPressed: () {},
+                      child: Icon(Icons.flag),
+                      color: Colors.lightGreen,
+                      textColor: Colors.white,
+                    ),
                   ],
                 ),
-              ),
+                Divider(),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    RaisedButton(
+                      onPressed: () {},
+                      child: Text('Save'),
+                    ),
+                    RaisedButton(
+                      onPressed: () {},
+                      child: Icon(Icons.save),
+                      color: Colors.lightGreen,
+                      textColor: Colors.white,
+                    ),
+                  ],
+                ),
+                Divider(),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    // Default - left button
+                    IconButton(
+                      onPressed: () {},
+                      icon: Icon(Icons.flight),
+                    ),
+                    // Customize - right button
+                    IconButton(
+                      onPressed: () {},
+                      icon: Icon(Icons.flight),
+                      iconSize: 42.0,
+                      color: Colors.lightGreen,
+                      tooltip: 'Flight',
+                    ),
+                  ],
+                )
+              ],
             ),
           ),
-        ));
-  }
-}
-
-class RowAndColumnWidget extends StatelessWidget {
-  const RowAndColumnWidget({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Container(
-              height: 60.0,
-              width: 60.0,
-              color: Colors.yellow,
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: Icon(Icons.play_arrow),
+        backgroundColor: Colors.lightGreen.shade100,
+      ),
+      bottomNavigationBar: BottomAppBar(
+        shape: CircularNotchedRectangle(),
+        color: Colors.lightGreen.shade100,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            Icon(Icons.pause),
+            Icon(Icons.stop),
+            Icon(Icons.access_time),
+            Padding(
+              padding: EdgeInsets.all(32.0),
             ),
-            Padding(padding: EdgeInsets.all(16.0)),
-            Container(
-              height: 40.0,
-              width: 40.0,
-              color: Colors.amber,
-            ),
-            Padding(padding: EdgeInsets.all(16.0)),
-            Container(
-              height: 20.0,
-              width: 20.0,
-              color: Colors.brown,
-            ),
-            Divider(),
-            const RowAndStackWidget(),
-            Divider(),
-            Text('End of the Line'),
           ],
-        )
-      ],
-    );
-  }
-}
-
-class RowAndStackWidget extends StatelessWidget {
-  const RowAndStackWidget({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: <Widget>[
-        // Next step we'll add more widgets
-        CircleAvatar(
-          backgroundColor: Colors.lightGreen,
-          radius: 100.0,
-          child: Stack(
-            children: [
-              Container(
-                width: 100.0,
-                height: 100.0,
-                color: Colors.yellow,
-              ),
-              Container(width: 60.0, height: 60.0, color: Colors.amber),
-              Container(width: 40.0, height: 40.0, color: Colors.brown),
-            ],
-          ),
-        )
-      ],
-    );
-  }
-}
-
-class RowWidget extends StatelessWidget {
-  const RowWidget({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Container(
-          color: Colors.yellow,
-          width: 40.0,
-          height: 40.0,
         ),
-        Padding(
-          padding: EdgeInsets.all(16.0),
-        ),
-        Expanded(
-          child: Container(
-            width: 40.0,
-            height: 40.0,
-            color: Colors.amber,
-          ),
-        ),
-        Padding(padding: EdgeInsets.all(16.0)),
-        Container(
-          width: 40.0,
-          height: 40.0,
-          color: Colors.brown,
-        )
-      ],
+      ),
     );
   }
 }
