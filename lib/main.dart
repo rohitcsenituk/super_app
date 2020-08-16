@@ -1,9 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:super_app/widgets/column_widget.dart';
-import 'package:super_app/widgets/container_with_decoration.dart';
-import 'package:super_app/widgets/nested_column_row.dart';
-import 'package:super_app/widgets/popup_menu_button.dart';
-import 'package:super_app/widgets/row_widget.dart';
 
 void main() {
   runApp(MyApp());
@@ -16,7 +11,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.lightGreen,
+        primarySwatch: Colors.blue,
       ),
       home: MyHomePage(
         title: 'HOME',
@@ -35,144 +30,119 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        actions: [
-          IconButton(icon: Icon(Icons.search), onPressed: () {}),
-          IconButton(icon: Icon(Icons.more_vert), onPressed: () {})
-        ],
-        flexibleSpace: SafeArea(
-          child: Icon(
-            Icons.camera_alt,
-            size: 75.0,
-            color: Colors.white70,
-          ),
-        ),
-        bottom: PopupMenuButtonWidget(),
-        leading: IconButton(
-            icon: Icon(Icons.menu),
-            onPressed: () {
-              debugPrint('Icon Pressed');
-            }),
-        title: Text(widget.title),
+        title: Text('ImagesAssets'),
       ),
-      body: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: SafeArea(
+      body: SafeArea(
           child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const ContainerWithBoxDecorationWidget(),
-                const ColumnWidget(),
-                const RowWidget(),
-                Divider(),
-                const ColumnAndRowNestingWidget(),
-                Divider(),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    FlatButton(
-                      onPressed: () {},
-                      child: Text('Flag'),
-                    ),
-                    FlatButton(
-                      onPressed: () {},
-                      child: Icon(Icons.flag),
-                      color: Colors.lightGreen,
-                      textColor: Colors.white,
-                    ),
-                  ],
-                ),
-                Divider(),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    RaisedButton(
-                      onPressed: () {},
-                      child: Text('Save'),
-                    ),
-                    RaisedButton(
-                      onPressed: () {},
-                      child: Icon(Icons.save),
-                      color: Colors.lightGreen,
-                      textColor: Colors.white,
-                    ),
-                  ],
-                ),
-                Divider(),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    // Default - left button
-                    IconButton(
-                      onPressed: () {},
-                      icon: Icon(Icons.flight),
-                    ),
-                    // Customize - right button
-                    IconButton(
-                      onPressed: () {},
-                      icon: Icon(Icons.flight),
-                      iconSize: 42.0,
-                      color: Colors.lightGreen,
-                      tooltip: 'Flight',
-                    ),
-                  ],
-                ),
-                Container(
-                  color: Colors.white70,
-                  child: ButtonBar(
-                    alignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      IconButton(
-                        icon: Icon(Icons.map),
-                        onPressed: () {},
-                      ),
-                      IconButton(
-                        icon: Icon(Icons.airport_shuttle),
-                        onPressed: () {},
-                      ),
-                      IconButton(
-                        icon: Icon(Icons.brush),
-                        splashColor: Colors.purple,
-                        onPressed: () {},
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: <Widget>[
+              const ImageAndIconWidget(),
+              Divider(
+                thickness: 5.0,
+              ),
+              const BoxDecoratorWidget(),
+              Divider(
+                thickness: 5.0,
+              ),
+              const InputDecoratorsWidget()
+            ],
           ),
         ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: Icon(Icons.play_arrow),
-        backgroundColor: Colors.lightGreen.shade100,
-      ),
-      bottomNavigationBar: BottomAppBar(
-        shape: CircularNotchedRectangle(),
-        color: Colors.lightGreen.shade100,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            Icon(Icons.pause),
-            Icon(Icons.stop),
-            Icon(Icons.access_time),
-            Padding(
-              padding: EdgeInsets.all(32.0),
-            ),
-          ],
+      )),
+    );
+  }
+}
+
+class InputDecoratorsWidget extends StatelessWidget {
+  const InputDecoratorsWidget({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        TextField(
+          keyboardType: TextInputType.name,
+          style: TextStyle(
+            color: Colors.grey.shade800,
+            fontSize: 16.0,
+          ),
+          decoration: InputDecoration(
+            border: OutlineInputBorder(),
+            labelText: "Username",
+            labelStyle: TextStyle(color: Colors.purple),
+          ),
         ),
-      ),
+        Divider(
+          height: 50.0,
+        ),
+        TextFormField(
+          decoration: InputDecoration(
+            labelText: 'Enter your notes',
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class BoxDecoratorWidget extends StatelessWidget {
+  const BoxDecoratorWidget({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 100.0,
+      height: 100.0,
+      decoration: BoxDecoration(
+          color: Colors.deepOrange,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(30.0),
+            bottomRight: Radius.circular(30.0),
+          ),
+          boxShadow: [
+            BoxShadow(
+                color: Colors.grey, blurRadius: 10.0, offset: Offset(5.0, 8.0))
+          ]),
+    );
+  }
+}
+
+class ImageAndIconWidget extends StatelessWidget {
+  const ImageAndIconWidget({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        Image(
+          width: MediaQuery.of(context).size.width / 3,
+          image: AssetImage('assets/images/charminar.png'),
+          //color: Colors.red,
+          fit: BoxFit.scaleDown,
+        ),
+        Image.network(
+          'https://flutter.io/images/catalog-widget-placeholder.png',
+          width: MediaQuery.of(context).size.width / 3,
+        ),
+        Icon(
+          Icons.brush,
+          color: Colors.lightBlue,
+          size: 48.0,
+        ),
+      ],
     );
   }
 }
